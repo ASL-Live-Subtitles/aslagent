@@ -4,8 +4,7 @@
     "title": "ASL Emotion Agent API",
     "description": "Microservice for mapping ASL model outputs (emotion, intent) into expressive metadata such as punctuation and TTS tone adjustments.\n",
     "contact": {
-      "name": "Charles Xu",
-      "email": "you@your-company.com"
+      "name": "Charles Xu"
     },
     "license": {
       "name": "Apache 2.0",
