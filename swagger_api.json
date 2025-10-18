@@ -1,0 +1,539 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ASL Emotion Agent API",
+    "description": "Microservice for mapping ASL model outputs (emotion, intent) into expressive metadata such as punctuation and TTS tone adjustments.\n",
+    "contact": {
+      "name": "Charles Xu",
+      "email": "you@your-company.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/personalcx/ASLAgent/1.0.0",
+      "description": "SwaggerHub API Auto Mocking Server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "EmotionAnalysis",
+      "description": "Operations for managing emotion–intent mapping rules"
+    },
+    {
+      "name": "AgentSession",
+      "description": "Operations for processing ASL model outputs and generating expressive metadata"
+    }
+  ],
+  "paths": {
+    "/emotion_analyses": {
+      "get": {
+        "tags": [
+          "EmotionAnalysis"
+        ],
+        "summary": "List all EmotionAnalysis rules",
+        "parameters": [
+          {
+            "name": "emotion",
+            "in": "query",
+            "description": "Filter by emotion",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "intent",
+            "in": "query",
+            "description": "Filter by intent",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of EmotionAnalysis objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EmotionAnalysisRead"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "EmotionAnalysis"
+        ],
+        "summary": "Create a new EmotionAnalysis rule",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmotionAnalysisCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "EmotionAnalysis created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmotionAnalysisRead"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/emotion_analyses/{analysis_id}": {
+      "get": {
+        "tags": [
+          "EmotionAnalysis"
+        ],
+        "summary": "Get a specific EmotionAnalysis rule",
+        "parameters": [
+          {
+            "name": "analysis_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested EmotionAnalysis",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmotionAnalysisRead"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "EmotionAnalysis not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "EmotionAnalysis"
+        ],
+        "summary": "Update an existing EmotionAnalysis rule",
+        "parameters": [
+          {
+            "name": "analysis_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmotionAnalysisUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "EmotionAnalysis updated"
+          },
+          "404": {
+            "description": "EmotionAnalysis not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "EmotionAnalysis"
+        ],
+        "summary": "Delete an EmotionAnalysis rule",
+        "parameters": [
+          {
+            "name": "analysis_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "EmotionAnalysis deleted"
+          },
+          "404": {
+            "description": "EmotionAnalysis not found"
+          }
+        }
+      }
+    },
+    "/agent_sessions": {
+      "get": {
+        "tags": [
+          "AgentSession"
+        ],
+        "summary": "List all AgentSession records",
+        "parameters": [
+          {
+            "name": "detected_emotion",
+            "in": "query",
+            "description": "Filter by detected emotion",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "detected_intent",
+            "in": "query",
+            "description": "Filter by detected intent",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of AgentSession objects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AgentSessionRead"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "AgentSession"
+        ],
+        "summary": "Create a new AgentSession record",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AgentSessionCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "AgentSession created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentSessionRead"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agent_sessions/{session_id}": {
+      "get": {
+        "tags": [
+          "AgentSession"
+        ],
+        "summary": "Get an AgentSession record",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The requested AgentSession",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentSessionRead"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "AgentSession not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "AgentSession"
+        ],
+        "summary": "Update an AgentSession record",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AgentSessionUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "AgentSession updated"
+          },
+          "404": {
+            "description": "AgentSession not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "AgentSession"
+        ],
+        "summary": "Delete an AgentSession record",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "AgentSession deleted"
+          },
+          "404": {
+            "description": "AgentSession not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EmotionAnalysisBase": {
+        "required": [
+          "emotion",
+          "intent",
+          "punctuation_adjustment",
+          "tts_tone"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "emotion": {
+            "type": "string",
+            "example": "frustrated"
+          },
+          "intent": {
+            "type": "string",
+            "example": "question"
+          },
+          "punctuation_adjustment": {
+            "type": "string",
+            "example": "add question mark"
+          },
+          "tts_tone": {
+            "type": "string",
+            "example": "curious"
+          },
+          "confidence_threshold": {
+            "type": "number",
+            "format": "float",
+            "example": 0.85
+          }
+        }
+      },
+      "EmotionAnalysisCreate": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EmotionAnalysisBase"
+          }
+        ]
+      },
+      "EmotionAnalysisRead": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/EmotionAnalysisBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        ]
+      },
+      "EmotionAnalysisUpdate": {
+        "type": "object",
+        "properties": {
+          "emotion": {
+            "type": "string",
+            "example": "neutral"
+          },
+          "intent": {
+            "type": "string",
+            "example": "statement"
+          },
+          "punctuation_adjustment": {
+            "type": "string",
+            "example": "add period"
+          },
+          "tts_tone": {
+            "type": "string",
+            "example": "soft"
+          },
+          "confidence_threshold": {
+            "type": "number",
+            "format": "float",
+            "example": 0.75
+          }
+        }
+      },
+      "AgentSessionBase": {
+        "required": [
+          "adjusted_text",
+          "detected_emotion",
+          "detected_intent",
+          "input_text",
+          "tts_metadata"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "input_text": {
+            "type": "string",
+            "example": "What time is it"
+          },
+          "detected_emotion": {
+            "type": "string",
+            "example": "frustrated"
+          },
+          "detected_intent": {
+            "type": "string",
+            "example": "question"
+          },
+          "adjusted_text": {
+            "type": "string",
+            "example": "What time is it?"
+          },
+          "tts_metadata": {
+            "type": "object",
+            "example": {
+              "tone": "soft",
+              "pitch": "low"
+            }
+          }
+        }
+      },
+      "AgentSessionCreate": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AgentSessionBase"
+          }
+        ]
+      },
+      "AgentSessionRead": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AgentSessionBase"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "created_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        ]
+      },
+      "AgentSessionUpdate": {
+        "type": "object",
+        "properties": {
+          "adjusted_text": {
+            "type": "string",
+            "example": "What time is it?"
+          },
+          "tts_metadata": {
+            "type": "object",
+            "example": {
+              "tone": "neutral",
+              "pitch": "medium"
+            }
+          }
+        }
+      }
+    }
+  }
+}
