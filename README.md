@@ -88,9 +88,11 @@ curl -X POST http://localhost:8080/translation_sessions \
 ```bash
 curl -X POST http://localhost:8080/translation_sessions/<session_id>/compose \
   -H "Content-Type: application/json" \
+  -H "X-OpenAI-Key: sk-your-key" \
   -d '{
         "glosses": ["IX-1","GOOD","IDEA"],
-        "letters": ["A","I"]
+        "letters": ["A","I"],
+        "openai_model": "gpt-4o-mini"
       }'
 ```
 The response includes the updated session with the composed sentence, appended context, and confidence.
@@ -101,10 +103,12 @@ Send a list of glosses/words to `/compose/sentence` and the service calls OpenAI
 ```bash
 curl -X POST http://localhost:8080/compose/sentence \
   -H "Content-Type: application/json" \
+  -H "X-OpenAI-Key: sk-your-key" \
   -d '{
         "glosses": ["IX-1","GOOD","IDEA"],
         "letters": ["A","I"],
-        "context": "Planning next sprint tasks"
+        "context": "Planning next sprint tasks",
+        "openai_model": "gpt-4o-mini"
       }'
 ```
 
@@ -118,7 +122,7 @@ Response:
 }
 ```
 
-Remember to set `OPENAI_API_KEY` everywhere you run the service (local shell, Docker, Cloud Run).
+Remember: the API now accepts client-supplied OpenAI credentials. Pass `openai_api_key` / `openai_model` in the JSON body or `X-OpenAI-Key` / `X-OpenAI-Model` headers. If neither is provided, the server will fall back to `OPENAI_API_KEY` env vars (if configured).
 
 ---
 
@@ -144,9 +148,6 @@ conda activate aslagent-env
 
 # Install dependencies
 pip install -r requirements.txt
-
-# Export OpenAI key (or add to .env)
-export OPENAI_API_KEY=sk-your-key
 
 # Start the API
 python -m app.main
@@ -178,7 +179,6 @@ docker run -p 8080:8080 \
   -e DB_USER=asl_agent \
   -e DB_PASSWORD=super-secret \
   -e DB_NAME=asl_agent \
-  -e OPENAI_API_KEY=sk-your-key \
   aslagent
 ```
 If you’ve already created a `.env`, you can load it directly instead of passing each flag:

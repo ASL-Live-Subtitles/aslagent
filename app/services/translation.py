@@ -17,9 +17,15 @@ from .composer import SentenceComposer
 class TranslationSessionManager:
     """Coordinates session persistence with the SentenceComposer."""
 
-    def __init__(self, service: TranslationSessionMySQLService, composer: Optional[SentenceComposer] = None) -> None:
+    def __init__(
+        self,
+        service: TranslationSessionMySQLService,
+        composer: Optional[SentenceComposer] = None,
+        api_key: str | None = None,
+        model: str | None = None,
+    ) -> None:
         self.service = service
-        self.composer = composer or SentenceComposer()
+        self.composer = composer or SentenceComposer(api_key=api_key, model=model)
         self.logger = logging.getLogger(__name__)
 
     async def compose(self, session_id: UUID, payload: TranslationSessionComposeRequest) -> TranslationSessionRead:

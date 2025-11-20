@@ -5,7 +5,7 @@ from uuid import UUID
 
 import logging
 
-from fastapi import APIRouter, HTTPException, Path, Query
+from fastapi import APIRouter, HTTPException, Header, Path, Query
 
 from app.db import TranslationSessionMySQLService
 from app.models.translation_session import (
@@ -85,9 +85,14 @@ def update_translation_session(session_id: UUID, session_update: TranslationSess
 
 
 @router.post("/{session_id}/compose", response_model=TranslationSessionRead)
-async def compose_sentence_for_session(session_id: UUID, payload: TranslationSessionComposeRequest):
+async def compose_sentence_for_session(
+    session_id: UUID,
+    payload: TranslationSessionComposeRequest,
+    x_openai_key: str | None = Header(default=None, convert_underscores=False),
+    x_openai_model: str | None = Header(default=None, convert_underscores=False),
+):
     service = _service()
-    manager = TranslationSessionManager(service)
+    manager = TranslationSessionManager(service, api_key=x_openai_key, model=x_openai_model)
     try:
         return await manager.compose(session_id, payload)
     except ValueError as exc:

@@ -14,9 +14,8 @@ logger = logging.getLogger(__name__)
 @router.post("/sentence", response_model=ComposeSentenceResponse, status_code=200)
 def compose_sentence(request: ComposeSentenceRequest):
     try:
-        composer = SentenceComposer()
         logger.info("Standalone compose request | glosses=%s | letters=%s | context=%s", request.glosses, request.letters, request.context)
-        response = composer.compose(request)
+        response = SentenceComposer().compose(request)
         logger.info("Standalone compose result | text=%s", response.text)
         return response
     except RuntimeError as exc:
