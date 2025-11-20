@@ -20,21 +20,21 @@
   ],
   "tags": [
     {
-      "name": "EmotionAnalysis",
+      "name": "ExpressionRule",
       "description": "Operations for managing emotion–intent mapping rules"
     },
     {
-      "name": "AgentSession",
+      "name": "TranslationSession",
       "description": "Operations for processing ASL model outputs and generating expressive metadata"
     }
   ],
   "paths": {
-    "/emotion_analyses": {
+    "/expression_rules": {
       "get": {
         "tags": [
-          "EmotionAnalysis"
+          "ExpressionRule"
         ],
-        "summary": "List all EmotionAnalysis rules",
+        "summary": "List all ExpressionRule rules",
         "parameters": [
           {
             "name": "emotion",
@@ -57,13 +57,13 @@
         ],
         "responses": {
           "200": {
-            "description": "A list of EmotionAnalysis objects",
+            "description": "A list of ExpressionRule objects",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/EmotionAnalysisRead"
+                    "$ref": "#/components/schemas/ExpressionRuleRead"
                   }
                 }
               }
@@ -73,14 +73,14 @@
       },
       "post": {
         "tags": [
-          "EmotionAnalysis"
+          "ExpressionRule"
         ],
-        "summary": "Create a new EmotionAnalysis rule",
+        "summary": "Create a new ExpressionRule rule",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EmotionAnalysisCreate"
+                "$ref": "#/components/schemas/ExpressionRuleCreate"
               }
             }
           },
@@ -88,11 +88,11 @@
         },
         "responses": {
           "201": {
-            "description": "EmotionAnalysis created",
+            "description": "ExpressionRule created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmotionAnalysisRead"
+                  "$ref": "#/components/schemas/ExpressionRuleRead"
                 }
               }
             }
@@ -100,12 +100,12 @@
         }
       }
     },
-    "/emotion_analyses/{analysis_id}": {
+    "/expression_rules/{analysis_id}": {
       "get": {
         "tags": [
-          "EmotionAnalysis"
+          "ExpressionRule"
         ],
-        "summary": "Get a specific EmotionAnalysis rule",
+        "summary": "Get a specific ExpressionRule rule",
         "parameters": [
           {
             "name": "analysis_id",
@@ -119,25 +119,25 @@
         ],
         "responses": {
           "200": {
-            "description": "The requested EmotionAnalysis",
+            "description": "The requested ExpressionRule",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmotionAnalysisRead"
+                  "$ref": "#/components/schemas/ExpressionRuleRead"
                 }
               }
             }
           },
           "404": {
-            "description": "EmotionAnalysis not found"
+            "description": "ExpressionRule not found"
           }
         }
       },
       "put": {
         "tags": [
-          "EmotionAnalysis"
+          "ExpressionRule"
         ],
-        "summary": "Update an existing EmotionAnalysis rule",
+        "summary": "Update an existing ExpressionRule rule",
         "parameters": [
           {
             "name": "analysis_id",
@@ -153,7 +153,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/EmotionAnalysisUpdate"
+                "$ref": "#/components/schemas/ExpressionRuleUpdate"
               }
             }
           },
@@ -161,18 +161,18 @@
         },
         "responses": {
           "200": {
-            "description": "EmotionAnalysis updated"
+            "description": "ExpressionRule updated"
           },
           "404": {
-            "description": "EmotionAnalysis not found"
+            "description": "ExpressionRule not found"
           }
         }
       },
       "delete": {
         "tags": [
-          "EmotionAnalysis"
+          "ExpressionRule"
         ],
-        "summary": "Delete an EmotionAnalysis rule",
+        "summary": "Delete an ExpressionRule rule",
         "parameters": [
           {
             "name": "analysis_id",
@@ -186,20 +186,20 @@
         ],
         "responses": {
           "200": {
-            "description": "EmotionAnalysis deleted"
+            "description": "ExpressionRule deleted"
           },
           "404": {
-            "description": "EmotionAnalysis not found"
+            "description": "ExpressionRule not found"
           }
         }
       }
     },
-    "/agent_sessions": {
+    "/translation_sessions": {
       "get": {
         "tags": [
-          "AgentSession"
+          "TranslationSession"
         ],
-        "summary": "List all AgentSession records",
+        "summary": "List all TranslationSession records",
         "parameters": [
           {
             "name": "detected_emotion",
@@ -222,13 +222,13 @@
         ],
         "responses": {
           "200": {
-            "description": "List of AgentSession objects",
+            "description": "List of TranslationSession objects",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/AgentSessionRead"
+                    "$ref": "#/components/schemas/TranslationSessionRead"
                   }
                 }
               }
@@ -238,14 +238,14 @@
       },
       "post": {
         "tags": [
-          "AgentSession"
+          "TranslationSession"
         ],
-        "summary": "Create a new AgentSession record",
+        "summary": "Create a new TranslationSession record",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AgentSessionCreate"
+                "$ref": "#/components/schemas/TranslationSessionCreate"
               }
             }
           },
@@ -253,11 +253,11 @@
         },
         "responses": {
           "201": {
-            "description": "AgentSession created",
+            "description": "TranslationSession created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AgentSessionRead"
+                  "$ref": "#/components/schemas/TranslationSessionRead"
                 }
               }
             }
@@ -265,12 +265,12 @@
         }
       }
     },
-    "/agent_sessions/{session_id}": {
+    "/translation_sessions/{session_id}": {
       "get": {
         "tags": [
-          "AgentSession"
+          "TranslationSession"
         ],
-        "summary": "Get an AgentSession record",
+        "summary": "Get an TranslationSession record",
         "parameters": [
           {
             "name": "session_id",
@@ -284,25 +284,25 @@
         ],
         "responses": {
           "200": {
-            "description": "The requested AgentSession",
+            "description": "The requested TranslationSession",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AgentSessionRead"
+                  "$ref": "#/components/schemas/TranslationSessionRead"
                 }
               }
             }
           },
           "404": {
-            "description": "AgentSession not found"
+            "description": "TranslationSession not found"
           }
         }
       },
       "put": {
         "tags": [
-          "AgentSession"
+          "TranslationSession"
         ],
-        "summary": "Update an AgentSession record",
+        "summary": "Update an TranslationSession record",
         "parameters": [
           {
             "name": "session_id",
@@ -318,7 +318,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AgentSessionUpdate"
+                "$ref": "#/components/schemas/TranslationSessionUpdate"
               }
             }
           },
@@ -326,18 +326,18 @@
         },
         "responses": {
           "200": {
-            "description": "AgentSession updated"
+            "description": "TranslationSession updated"
           },
           "404": {
-            "description": "AgentSession not found"
+            "description": "TranslationSession not found"
           }
         }
       },
       "delete": {
         "tags": [
-          "AgentSession"
+          "TranslationSession"
         ],
-        "summary": "Delete an AgentSession record",
+        "summary": "Delete an TranslationSession record",
         "parameters": [
           {
             "name": "session_id",
@@ -351,10 +351,10 @@
         ],
         "responses": {
           "200": {
-            "description": "AgentSession deleted"
+            "description": "TranslationSession deleted"
           },
           "404": {
-            "description": "AgentSession not found"
+            "description": "TranslationSession not found"
           }
         }
       }
@@ -362,7 +362,7 @@
   },
   "components": {
     "schemas": {
-      "EmotionAnalysisBase": {
+      "ExpressionRuleBase": {
         "required": [
           "emotion",
           "intent",
@@ -398,17 +398,17 @@
           }
         }
       },
-      "EmotionAnalysisCreate": {
+      "ExpressionRuleCreate": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/EmotionAnalysisBase"
+            "$ref": "#/components/schemas/ExpressionRuleBase"
           }
         ]
       },
-      "EmotionAnalysisRead": {
+      "ExpressionRuleRead": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/EmotionAnalysisBase"
+            "$ref": "#/components/schemas/ExpressionRuleBase"
           },
           {
             "type": "object",
@@ -425,7 +425,7 @@
           }
         ]
       },
-      "EmotionAnalysisUpdate": {
+      "ExpressionRuleUpdate": {
         "type": "object",
         "properties": {
           "emotion": {
@@ -451,7 +451,7 @@
           }
         }
       },
-      "AgentSessionBase": {
+      "TranslationSessionBase": {
         "required": [
           "adjusted_text",
           "detected_emotion",
@@ -490,17 +490,17 @@
           }
         }
       },
-      "AgentSessionCreate": {
+      "TranslationSessionCreate": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/AgentSessionBase"
+            "$ref": "#/components/schemas/TranslationSessionBase"
           }
         ]
       },
-      "AgentSessionRead": {
+      "TranslationSessionRead": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/AgentSessionBase"
+            "$ref": "#/components/schemas/TranslationSessionBase"
           },
           {
             "type": "object",
@@ -517,7 +517,7 @@
           }
         ]
       },
-      "AgentSessionUpdate": {
+      "TranslationSessionUpdate": {
         "type": "object",
         "properties": {
           "adjusted_text": {

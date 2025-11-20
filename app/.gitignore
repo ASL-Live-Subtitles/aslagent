@@ -1,0 +1,69 @@
+# -----------------------------
+# Environment & Secrets
+# -----------------------------
+.env
+*.env
+!example.env
+
+# -----------------------------
+# Python cache
+# -----------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.pdc
+*.so
+
+# -----------------------------
+# Virtual environments
+# -----------------------------
+venv/
+.env/
+.venv/
+env/
+aslagent-env/
+
+# -----------------------------
+# IDE / Editor settings
+# -----------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# -----------------------------
+# OS files
+# -----------------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------------
+# Logs
+# -----------------------------
+*.log
+logs/
+log/
+
+# -----------------------------
+# Test cache
+# -----------------------------
+.pytest_cache/
+.mypy_cache/
+coverage/
+htmlcov/
+
+# -----------------------------
+# Build artifacts
+# -----------------------------
+build/
+dist/
+*.egg-info/
+
+# -----------------------------
+# Docker files (optional)
+# -----------------------------
+.dockerignore
+docker-compose.override.yml

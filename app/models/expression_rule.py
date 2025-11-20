@@ -5,7 +5,7 @@ from datetime import datetime
 from pydantic import BaseModel, Field
 
 
-class EmotionAnalysisBase(BaseModel):
+class ExpressionRuleBase(BaseModel):
     id: UUID = Field(default_factory=uuid4)
     emotion: str = Field(
         ...,
@@ -49,11 +49,11 @@ class EmotionAnalysisBase(BaseModel):
     }
 
 
-class EmotionAnalysisCreate(EmotionAnalysisBase):
+class ExpressionRuleCreate(ExpressionRuleBase):
     pass
 
 
-class EmotionAnalysisRead(EmotionAnalysisBase):
+class ExpressionRuleRead(ExpressionRuleBase):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
 
@@ -75,7 +75,7 @@ class EmotionAnalysisRead(EmotionAnalysisBase):
     }
 
 
-class EmotionAnalysisUpdate(BaseModel):
+class ExpressionRuleUpdate(BaseModel):
     emotion: Optional[str] = Field(None, description="Detected emotion.", json_schema_extra={"example": "neutral"})
     intent: Optional[str] = Field(None, description="Detected intent.", json_schema_extra={"example": "statement"})
     punctuation_adjustment: Optional[str] = Field(None, description="Updated punctuation rule.", json_schema_extra={"example": "add period"})
